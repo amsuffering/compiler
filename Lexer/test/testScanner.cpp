@@ -5,13 +5,12 @@
 #include <vector>
 #include "scanner.h"
 #include "ErrorReporter/ErrorReporter.h"
+
 using std::cout, std::endl, std::string, std::vector;
 
-bool hadError = false;
+ErrorReporter e = ErrorReporter();
 
 // function declarations cause i dont want to use a header file for driver code and c++ doesn't support hoisting cause idk why
-void report(int line, string where, string message);
-void error(int line, string message);
 void run(string source);
 void runFile(string filePath);
 
@@ -22,7 +21,6 @@ void run(string source) {
     for(Token t : tokens) {
         cout << t.tokenToString() << endl;
     }
-    error(scanner.getLine(), "Unexpected token");
 }
 
 void runFile(string filePath) {
@@ -36,22 +34,13 @@ void runFile(string filePath) {
     string source = buffer.str();
     cout << source;
     run(source);
-    if(hadError) {
+    if(e.hadError()) {
         exit(EXIT_FAILURE);
     };
 }
 
-void report(int line, string where, string message) {
-    std::cerr << "[line " << line  << "] Error" << where << ": " << message << endl;
-    hadError = true;
-}
-
-void error(int line, string message) {
-    report(line, "", message);
-}
-
 int main(int argc, char* argv[]) {
-    hadError = false;
+    e.hadError(true);
     if (argc == 2) {
         runFile(argv[1]);
     }
