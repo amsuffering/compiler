@@ -3,8 +3,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "scanner.h"
-#include "ErrorReporter/ErrorReporter.h"
+#include "../scanner.h"
 
 using std::cout, std::endl, std::string, std::vector;
 
@@ -15,7 +14,7 @@ void run(string source);
 void runFile(string filePath);
 
 void run(string source) {
-    Scanner scanner = Scanner(source);
+    Scanner scanner = Scanner(source, e);
     vector<Token> tokens = scanner.scanTokens();
     // print tokens
     for(Token t : tokens) {
@@ -45,7 +44,7 @@ int main(int argc, char* argv[]) {
         runFile(argv[1]);
     }
     else {
-        cout << "Usage: ./build/testScanner.o [filePath]" << endl;
+        cout << "Usage: ./build/testScanner [filePath]" << endl;
         return -1;
     }
     return 0;
