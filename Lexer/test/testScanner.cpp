@@ -17,7 +17,7 @@ void run(string source) {
     Scanner scanner = Scanner(source, e);
     vector<Token> tokens = scanner.scanTokens();
     // print tokens
-    for(Token t : tokens) {
+    for(Token &t : tokens) {
         cout << t.tokenToString() << endl;
     }
 }
@@ -31,15 +31,15 @@ void runFile(string filePath) {
     std::stringstream buffer;
     buffer << file.rdbuf();
     string source = buffer.str();
-    cout << source;
     run(source);
     if(e.hadError()) {
+        std::cerr << "error" << endl;
         exit(EXIT_FAILURE);
     };
 }
 
 int main(int argc, char* argv[]) {
-    e.hadError(true);
+    e.hadError(false);
     if (argc == 2) {
         runFile(argv[1]);
     }

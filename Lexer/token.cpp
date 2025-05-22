@@ -1,5 +1,8 @@
 #include "token.h"
 #include "scanner.h"
+#include <sstream>
+#include <iomanip>
+#include <iostream>
 
 string typeToString(TokenType type)
 {
@@ -56,16 +59,14 @@ string typeToString(TokenType type)
     }
 }
 
-Token::Token() : type(TokenType::NONE), lexeme(""), literal(monostate{}), line(0) {}
-
-Token::Token(TokenType type, string lexeme, variant<bool, int, float, string, monostate> literal, int line) : type(type), lexeme(lexeme), literal(literal), line(line) {}
+Token::Token(TokenType type, string lexeme, variant<bool, int, double, string, monostate> literal, int line) : type(type), lexeme(lexeme), literal(literal), line(line) {}
 
 string Token::getLexeme()
 {
     return this->lexeme;
 }
 
-variant<bool, int, float, string, monostate> Token::getLiteral()
+variant<bool, int, double, string, monostate> Token::getLiteral()
 {
     return this->literal;
 }
@@ -74,6 +75,7 @@ int Token::getLine()
 {
     return this->line;
 }
+
 string Token::tokenToString()
 {
     string lit;
@@ -83,14 +85,23 @@ string Token::tokenToString()
     else if (std::holds_alternative<int>(literal)){
         lit = std::to_string(std::get<int>(literal));
     }
-    else if (std::holds_alternative<float>(literal)) {
-        lit = std::to_string(std::get<float>(literal));
+    else if (std::holds_alternative<double>(this->literal)) {
+        double value = std::get<double>(literal);
+        std::ostringstream oss;
+        oss << std::fixed << std::setprecision(6) << value;
+        lit = oss.str();
+
+        // Trim trailing zeros and optional dot
+        lit.erase(lit.find_last_not_of('0') + 1, std::string::npos);
+        if (!lit.empty() && lit.back() == '.') {
+            lit.pop_back();
+        }
     }
     else if (std::holds_alternative<bool>(literal)) {
-        lit = std::to_string(std::get<bool>(literal));
+        lit = std::get<bool>(literal) ? "true" : "false";
     }
     else {
-        lit = "nil";
+        lit = "null";
     }
     return typeToString(type) + " " + this->lexeme + " " + lit;
 }

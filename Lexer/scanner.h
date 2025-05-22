@@ -4,6 +4,7 @@
 #include "token.h"
 #include "../ErrorReporter/ErrorReporter.h"
 #include <vector>
+#include <map>
 
 using std::vector;
 
@@ -15,15 +16,18 @@ class Scanner {
     int start = 0;
     int current = 0;
     int line = 1;
+    std::map<string, TokenType> keywords;
     bool isAtEnd();
     void scanToken();
     char advance();
     void addToken(TokenType type);
-    void addToken(TokenType type, std::variant<bool, int, float, string, monostate> literal);
+    void addToken(TokenType type, std::variant<bool, int, double, string, monostate> literal);
     bool match(char expected);
     char peek();
+    char peekNext();
     void stringLit();
     void numberLit();
+    void identifier();
 
     public:
     Scanner(string& source, ErrorReporter& reporter);

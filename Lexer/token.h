@@ -30,15 +30,13 @@ class Token {
     private:
     const TokenType type;
     const string lexeme;
-    const variant<bool, int, float, string, monostate> literal;
+    const variant<bool, int, double, string, monostate> literal;
     const int line;
 
     public:
-    Token(); // default constructor. if this is ever called, i fucked up somewhere.
-    Token(TokenType type, string lexeme, variant<bool, int, float, string, monostate> literal, int line); // parameterized constructor
-    TokenType getType();
+    Token(TokenType type, string lexeme, variant<bool, int, double, string, monostate> literal, int line); // parameterized constructor
     string getLexeme();
-    variant<bool, int, float, string, monostate> getLiteral();
+    variant<bool, int, double, string, monostate> getLiteral();
     int getLine();
 
     string tokenToString();

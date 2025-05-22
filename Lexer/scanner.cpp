@@ -1,7 +1,25 @@
 #include "scanner.h"
-#include <stdexcept>
+#include <iostream>
 
-Scanner::Scanner(string& source, ErrorReporter& reporter) : source(source), reporter(reporter) {}
+Scanner::Scanner(string& source, ErrorReporter& reporter)
+    : source(source), reporter(reporter), keywords({
+        {"and",    TokenType::AND},
+        {"class",  TokenType::CLASS},
+        {"else",   TokenType::ELSE},
+        {"false",  TokenType::FALSE},
+        {"for",    TokenType::FOR},
+        {"fun",    TokenType::FUN},
+        {"if",     TokenType::IF},
+        {"nil",    TokenType::NIL},
+        {"or",     TokenType::OR},
+        {"print",  TokenType::PRINT},
+        {"return", TokenType::RETURN},
+        {"super",  TokenType::SUPER},
+        {"this",   TokenType::THIS},
+        {"true",   TokenType::TRUE},
+        {"var",    TokenType::VAR},
+        {"while",  TokenType::WHILE}
+    }) {}
 
 vector<Token> Scanner::scanTokens()
 {
@@ -72,8 +90,14 @@ void Scanner::scanToken()
         case '"': stringLit(); break;
 
         default: 
-        if (isdigit(c)) numberLit();
-        else reporter.error(line, "Unexpected Character"); break;
+            if (isdigit(c)) {
+                numberLit();
+            } else if (isalpha(c) || c == '_') {
+                identifier();
+            } else {
+                reporter.error(line, "Unexpected Character.");
+                break;
+            }
     }
 }
 
@@ -87,9 +111,9 @@ void Scanner::addToken(TokenType type)
     addToken(type, std::monostate{});
 }
 
-void Scanner::addToken(TokenType type, std::variant<bool, int, float, string, monostate> literal)
+void Scanner::addToken(TokenType type, std::variant<bool, int, double, string, monostate> literal)
 {
-    string text = source.substr(start, current);
+    string text = source.substr(start, current - start);
     tokens.push_back(Token(type, text, literal, line));
 }
 
@@ -105,6 +129,12 @@ char Scanner::peek()  // does not consume
 {
     if(isAtEnd()) return '\0';
     return source.at(current);
+}
+
+char Scanner::peekNext()
+{
+    if((long unsigned int) current + 1 >= source.length()) return '\0';
+    return source.at(current+1);
 }
 
 void Scanner::stringLit()
@@ -123,14 +153,35 @@ void Scanner::stringLit()
     advance();
 
     // Trim surrounding quotes
-    string value = source.substr(start + 1, current -1);
+    string value = source.substr(start + 1, current - start - 2);
     addToken(TokenType::STRING, value);
 }
 
 void Scanner::numberLit()
 {
+    while(isdigit(peek())) advance();
+
+    // check for decimal
+    if (peek() == '.' && isdigit(peekNext())) {
+        // consume .
+        advance();
+
+        while (isdigit(peek())) advance();
+    }
+    double value = std::stod(source.substr(start, current - start));
+    addToken(TokenType::NUMBER, value);
 }
 
+void Scanner::identifier()
+{
+    while(isalnum(peek()) || peek() == '_') advance();
+    
+    string text = source.substr(start, current - start);
+    auto search = keywords.find(text); // check if there is a keyword for text
+    TokenType type = TokenType::IDENTIFIER;
+    if (search != keywords.end()) type = search->second;
+    addToken(type);
+}
 int Scanner::getCurrent()
 {
     return this->current;

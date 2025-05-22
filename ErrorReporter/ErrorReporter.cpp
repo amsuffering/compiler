@@ -3,7 +3,7 @@
 
 void ErrorReporter::report(int line, std::string where, std::string message)
 {
-    std::cerr << "[line " << line << "] Error" << where << ": " << "message" << std::endl;
+    std::cerr << "[line " << line << "] Error" << where << ": " << message << std::endl;
     hadError(true);
 }
 
