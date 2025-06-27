@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include "../scanner.h"
+#include "scanner.h"
 
 using std::cout, std::endl, std::string, std::vector;
 

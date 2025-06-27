@@ -2,7 +2,7 @@
 #define SCANNER_H
 
 #include "token.h"
-#include "../ErrorReporter/ErrorReporter.h"
+#include "ErrorReporter.h"
 #include <vector>
 #include <map>
 
