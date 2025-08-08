@@ -1,15 +1,16 @@
 
 #include <string>
-#include "nodeVisitor.h"
+#include "visitor.h"
 
 using std::string;
 
-class ASTPrinter : public NodeVisitor{
+class ASTPrinter : public Visitor
+{
     private:
-    string print(Node n) {
+    string print(Expr n) {
         return std::any_cast<string>(n.accept(*this));
     }
 
     public:
-    string visitBinaryExpr();
+    void visitBinary(Binary b) override;
 };

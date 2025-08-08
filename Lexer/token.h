@@ -38,9 +38,7 @@ class Token {
     string getLexeme();
     variant<bool, int, double, string, monostate> getLiteral();
     int getLine();
-
     string tokenToString();
-
 };
 
 #endif

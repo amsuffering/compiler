@@ -1,12 +1,14 @@
 #ifndef EXPR_H
 #define EXPR_H
 
-#include "node.h"
-#include "../../Lexer/token.h"
+#include "token.h"
+#include "visitor.h"
+#include <any>
 
-class Expr : public Node {
-    private:
+class Expr 
+{
     public:
-    virtual std::any accept(NodeVisitor& visitor) = 0;
+    virtual std::any accept(Visitor& visitor) = 0;
 };
+
 #endif
