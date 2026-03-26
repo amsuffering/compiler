@@ -5,7 +5,7 @@
 
 class ErrorReporter {
     private:
-    bool e;
+    bool errorHappened;
     void report(int line, std::string where, std::string message);
 
     public:

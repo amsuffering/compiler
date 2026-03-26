@@ -7,7 +7,7 @@ void ErrorReporter::report(int line, std::string where, std::string message)
     hadError(true);
 }
 
-ErrorReporter::ErrorReporter() : e(false) {}
+ErrorReporter::ErrorReporter() : errorHappened(false) {}
 
 void ErrorReporter::error(int line, std::string message)
 {
@@ -16,9 +16,9 @@ void ErrorReporter::error(int line, std::string message)
 
 bool ErrorReporter::hadError()
 {
-    return this->e;
+    return this->errorHappened;
 }
 
 void ErrorReporter::hadError(bool hadError) {
-    this->e = hadError;
+    this->errorHappened = hadError;
 }
