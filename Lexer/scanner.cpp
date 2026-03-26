@@ -182,6 +182,7 @@ void Scanner::identifier()
     if (search != keywords.end()) type = search->second;
     addToken(type);
 }
+
 int Scanner::getCurrent()
 {
     return this->current;
