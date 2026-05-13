@@ -1,8 +1,6 @@
 #include "token.h"
-#include "scanner.h"
 #include <sstream>
 #include <iomanip>
-#include <iostream>
 
 string typeToString(TokenType type)
 {

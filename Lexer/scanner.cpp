@@ -1,5 +1,4 @@
 #include "scanner.h"
-#include <iostream>
 
 Scanner::Scanner(string& source, ErrorReporter& reporter)
     : source(source), reporter(reporter), keywords({
@@ -133,7 +132,7 @@ char Scanner::peek()  // does not consume
 
 char Scanner::peekNext()
 {
-    if((long unsigned int) current + 1 >= source.length()) return '\0';
+    if(static_cast<size_t>(current) + 1 >= source.length()) return '\0';
     return source.at(current+1);
 }
 
