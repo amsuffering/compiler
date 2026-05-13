@@ -4,7 +4,7 @@
 #include "token.h"
 #include "ErrorReporter.h"
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 using std::vector;
 
@@ -16,7 +16,7 @@ class Scanner {
     int start = 0;
     int current = 0;
     int line = 1;
-    std::map<string, TokenType> keywords;
+    std::unordered_map<string, TokenType> keywords;
     bool isAtEnd();
     void scanToken();
     char advance();
