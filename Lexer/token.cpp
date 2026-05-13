@@ -61,6 +61,11 @@ string typeToString(TokenType type)
 
 Token::Token(TokenType type, string lexeme, variant<bool, int, double, string, monostate> literal, int line) : type(type), lexeme(lexeme), literal(literal), line(line) {}
 
+TokenType Token::getType()
+{
+    return this->type;
+}
+
 string Token::getLexeme()
 {
     return this->lexeme;

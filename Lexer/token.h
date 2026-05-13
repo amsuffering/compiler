@@ -35,6 +35,7 @@ class Token {
 
     public:
     Token(TokenType type, string lexeme, variant<bool, int, double, string, monostate> literal, int line); // parameterized constructor
+    TokenType getType();
     string getLexeme();
     variant<bool, int, double, string, monostate> getLiteral();
     int getLine();
