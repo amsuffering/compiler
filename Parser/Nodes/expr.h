@@ -2,9 +2,9 @@
 #define EXPR_H
 
 #include "token.h"
-#include "visitor.h"
 #include <any>
 
+class Visitor;
 class Expr 
 {
     public:

@@ -1,17 +1,19 @@
 #ifndef VISITOR_H
 #define VISITOR_H
 
-#include "binary.h"
-#include "grouping.h"
-#include "literal.h"
-#include "unary.h"
+#include <any>
+
+class Binary;
+class Grouping;
+class Literal;
+class Unary;
 
 class Visitor {
     public:
-    virtual void visitBinary(const Binary& b) = 0;
-    virtual void visitGrouping(const Grouping& g) = 0;
-    virtual void visitLiteral(const Literal& l) = 0;
-    virtual void visitUnary(const Unary& u) = 0;
+    virtual std::any visitBinary(const Binary& binary) = 0;
+    virtual std::any visitGrouping(const Grouping& grouping) = 0;
+    virtual std::any visitLiteral(const Literal& literal) = 0;
+    virtual std::any visitUnary(const Unary& unary) = 0;
 };
 
 #endif

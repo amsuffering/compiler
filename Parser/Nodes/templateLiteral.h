@@ -12,10 +12,10 @@ class LiteralTemplate : public Literal
     T value;
 
     public:
+    LiteralTemplate(T value) : value(value) {}
     std::any accept(Visitor &v) override { return v.visitLiteral(*this); }
     std::any getValue() const override { return value; }
     T getTypedValue() const { return value; }
 };
-
 
 #endif

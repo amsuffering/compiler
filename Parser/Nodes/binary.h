@@ -13,6 +13,9 @@ class Binary : public Expr
     public:
     Binary(std::unique_ptr<Expr> left, Token op, std::unique_ptr<Expr> right);
     std::any accept(Visitor& v) override;
+    const Expr& getLeft() const;
+    const Token& getOp() const;
+    const Expr& getRight() const;
 };
 
 #endif
