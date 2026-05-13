@@ -21,7 +21,7 @@ class Scanner {
     void scanToken();
     char advance();
     void addToken(TokenType type);
-    void addToken(TokenType type, std::variant<bool, int, double, string, monostate> literal);
+    void addToken(TokenType type, std::variant<bool, double, string, monostate> literal);
     bool match(char expected);
     char peek();
     char peekNext();

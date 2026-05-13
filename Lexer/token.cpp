@@ -59,7 +59,7 @@ string typeToString(TokenType type)
     }
 }
 
-Token::Token(TokenType type, string lexeme, variant<bool, int, double, string, monostate> literal, int line) : type(type), lexeme(lexeme), literal(literal), line(line) {}
+Token::Token(TokenType type, string lexeme, variant<bool, double, string, monostate> literal, int line) : type(type), lexeme(lexeme), literal(literal), line(line) {}
 
 TokenType Token::getType()
 {
@@ -71,7 +71,7 @@ string Token::getLexeme()
     return this->lexeme;
 }
 
-variant<bool, int, double, string, monostate> Token::getLiteral()
+variant<bool, double, string, monostate> Token::getLiteral()
 {
     return this->literal;
 }
@@ -86,9 +86,6 @@ string Token::tokenToString()
     string lit;
     if(std::holds_alternative<string>(literal)) {
         lit = std::get<string>(literal);
-    }
-    else if (std::holds_alternative<int>(literal)){
-        lit = std::to_string(std::get<int>(literal));
     }
     else if (std::holds_alternative<double>(this->literal)) {
         double value = std::get<double>(literal);

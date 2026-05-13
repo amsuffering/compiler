@@ -30,14 +30,14 @@ class Token {
     private:
     const TokenType type;
     const string lexeme;
-    const variant<bool, int, double, string, monostate> literal;
+    const variant<bool, double, string, monostate> literal;
     const int line;
 
     public:
-    Token(TokenType type, string lexeme, variant<bool, int, double, string, monostate> literal, int line); // parameterized constructor
+    Token(TokenType type, string lexeme, variant<bool, double, string, monostate> literal, int line); // parameterized constructor
     TokenType getType();
     string getLexeme();
-    variant<bool, int, double, string, monostate> getLiteral();
+    variant<bool, double, string, monostate> getLiteral();
     int getLine();
     string tokenToString();
 };

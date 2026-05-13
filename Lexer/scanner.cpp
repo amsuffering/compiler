@@ -33,7 +33,7 @@ vector<Token> Scanner::scanTokens()
 
 bool Scanner::isAtEnd()
 {
-    return (long unsigned int) current >= source.length();
+    return static_cast<size_t>(current) >= source.length();
 }
 
 void Scanner::scanToken()
@@ -111,7 +111,7 @@ void Scanner::addToken(TokenType type)
     addToken(type, std::monostate{});
 }
 
-void Scanner::addToken(TokenType type, std::variant<bool, int, double, string, monostate> literal)
+void Scanner::addToken(TokenType type, std::variant<bool, double, string, monostate> literal)
 {
     string text = source.substr(start, current - start);
     tokens.push_back(Token(type, text, literal, line));
