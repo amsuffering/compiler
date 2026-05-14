@@ -8,7 +8,7 @@ class Visitor;
 class Expr 
 {
     public:
-    virtual std::any accept(Visitor& visitor) = 0;
+    virtual std::any accept(Visitor& visitor) const = 0;
 };
 
 #endif

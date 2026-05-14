@@ -12,7 +12,7 @@ class Unary : public Expr
     
     public:
     Unary(Token op, std::unique_ptr<Expr> right);
-    std::any accept(Visitor &v) override;
+    std::any accept(Visitor &v) const override;
     const Token& getOp() const;
     const Expr& getRight() const;
 };

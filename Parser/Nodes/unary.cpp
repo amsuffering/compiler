@@ -3,7 +3,7 @@
 
 Unary::Unary(Token op, std::unique_ptr<Expr> right) : op(op), right(std::move(right)) {}
 
-std::any Unary::accept(Visitor &v)
+std::any Unary::accept(Visitor &v) const
 {
     return v.visitUnary(*this);
 }

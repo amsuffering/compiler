@@ -6,12 +6,12 @@
 class Literal : public Expr 
 {
     private:
-    std::variant<bool, double, string, monostate> value;
+    std::variant<bool, double, std::string, std::monostate> value;
 
     public:
-    Literal(std::variant<bool, double, string, monostate> value);
-    std::any accept(Visitor& visitor) override;
-    const std::variant<bool, double, string, monostate>& getValue() const;
+    Literal(std::variant<bool, double, std::string, std::monostate> value);
+    std::any accept(Visitor& visitor) const override;
+    const std::variant<bool, double, std::string, std::monostate>& getValue() const;
 
 };
 

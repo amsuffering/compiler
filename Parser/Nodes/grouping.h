@@ -11,7 +11,7 @@ class Grouping : public Expr
 
     public:
     Grouping(std::unique_ptr<Expr> expression);
-    std::any accept(Visitor& visitor) override;
+    std::any accept(Visitor& visitor) const override;
     const Expr& getExpression() const;
 };
 

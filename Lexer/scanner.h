@@ -6,22 +6,20 @@
 #include <vector>
 #include <unordered_map>
 
-using std::vector;
-
 class Scanner {
     private:
-    const string source;
-    vector<Token> tokens;
+    const std::string source;
+    std::vector<Token> tokens;
     ErrorReporter& reporter;
     int start = 0;
     int current = 0;
     int line = 1;
-    std::unordered_map<string, TokenType> keywords;
+    std::unordered_map<std::string, TokenType> keywords;
     bool isAtEnd();
     void scanToken();
     char advance();
     void addToken(TokenType type);
-    void addToken(TokenType type, std::variant<bool, double, string, monostate> literal);
+    void addToken(TokenType type, std::variant<bool, double, std::string, std::monostate> literal);
     bool match(char expected);
     char peek();
     char peekNext();
@@ -30,8 +28,8 @@ class Scanner {
     void identifier();
 
     public:
-    Scanner(string& source, ErrorReporter& reporter);
-    vector<Token> scanTokens();
+    Scanner(std::string& source, ErrorReporter& reporter);
+    std::vector<Token> scanTokens();
     int getLine();
     int getCurrent();
 };

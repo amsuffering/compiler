@@ -3,7 +3,6 @@
 
 #include <string>
 #include <variant>
-using std::string, std::variant, std::monostate;
 
 enum class TokenType {
     // SINGLE CHARACTER TOKENS
@@ -24,22 +23,22 @@ enum class TokenType {
     EoF
 };
 
-string typeToString(TokenType type);
+std::string typeToString(TokenType type);
 
 class Token {
     private:
     const TokenType type;
-    const string lexeme;
-    const variant<bool, double, string, monostate> literal;
+    const std::string lexeme;
+    const std::variant<bool, double, std::string, std::monostate> literal;
     const int line;
 
     public:
-    Token(TokenType type, string lexeme, variant<bool, double, string, monostate> literal, int line); // parameterized constructor
+    Token(TokenType type, std::string lexeme, std::variant<bool, double, std::string, std::monostate> literal, int line);
     TokenType getType();
-    string getLexeme();
-    variant<bool, double, string, monostate> getLiteral();
+    std::string getLexeme();
+    std::variant<bool, double, std::string, std::monostate> getLiteral();
     int getLine();
-    string tokenToString();
+    std::string tokenToString();
 };
 
 #endif

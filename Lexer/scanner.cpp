@@ -1,6 +1,6 @@
 #include "scanner.h"
 
-Scanner::Scanner(string& source, ErrorReporter& reporter)
+Scanner::Scanner(std::string& source, ErrorReporter& reporter)
     : source(source), reporter(reporter), keywords({
         {"and",    TokenType::AND},
         {"class",  TokenType::CLASS},
@@ -20,7 +20,7 @@ Scanner::Scanner(string& source, ErrorReporter& reporter)
         {"while",  TokenType::WHILE}
     }) {}
 
-vector<Token> Scanner::scanTokens()
+std::vector<Token> Scanner::scanTokens()
 {
     while(!isAtEnd()) {
         start = current;
@@ -50,7 +50,7 @@ void Scanner::scanToken()
         case '+': addToken(TokenType::PLUS); break;
         case ';': addToken(TokenType::SEMICOLON); break;
         case '*': addToken(TokenType::STAR); break;
-        
+
         // operators we have the check the second character e.g. if we see  '!' at i then we have to check if i+1 is '=' to see if we add ! token or != token
         case '!':
             addToken(match('=') ? TokenType::BANG_EQUAL : TokenType::BANG);
@@ -74,7 +74,7 @@ void Scanner::scanToken()
                 addToken(TokenType::SLASH);
             }
             break;
-        
+
         // characters we ignore (spaces, tabs, cartridge)
         case ' ':
         case '\r':
@@ -84,18 +84,17 @@ void Scanner::scanToken()
         case '\n':
             line++;
             break;
-        
+
         // String Literal
         case '"': stringLit(); break;
 
-        default: 
+        default:
             if (isdigit(c)) {
                 numberLit();
             } else if (isalpha(c) || c == '_') {
                 identifier();
             } else {
                 reporter.error(line, "Unexpected Character.");
-                break;
             }
     }
 }
@@ -110,9 +109,9 @@ void Scanner::addToken(TokenType type)
     addToken(type, std::monostate{});
 }
 
-void Scanner::addToken(TokenType type, std::variant<bool, double, string, monostate> literal)
+void Scanner::addToken(TokenType type, std::variant<bool, double, std::string, std::monostate> literal)
 {
-    string text = source.substr(start, current - start);
+    std::string text = source.substr(start, current - start);
     tokens.push_back(Token(type, text, literal, line));
 }
 
@@ -152,7 +151,7 @@ void Scanner::stringLit()
     advance();
 
     // Trim surrounding quotes
-    string value = source.substr(start + 1, current - start - 2);
+    std::string value = source.substr(start + 1, current - start - 2);
     addToken(TokenType::STRING, value);
 }
 
@@ -174,8 +173,8 @@ void Scanner::numberLit()
 void Scanner::identifier()
 {
     while(isalnum(peek()) || peek() == '_') advance();
-    
-    string text = source.substr(start, current - start);
+
+    std::string text = source.substr(start, current - start);
     auto search = keywords.find(text); // check if there is a keyword for text
     TokenType type = TokenType::IDENTIFIER;
     if (search != keywords.end()) type = search->second;

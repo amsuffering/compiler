@@ -2,7 +2,7 @@
 #include <sstream>
 #include <iomanip>
 
-string typeToString(TokenType type)
+std::string typeToString(TokenType type)
 {
     switch (type) {
         // SINGLE CHARACTER TOKENS
@@ -57,19 +57,19 @@ string typeToString(TokenType type)
     }
 }
 
-Token::Token(TokenType type, string lexeme, variant<bool, double, string, monostate> literal, int line) : type(type), lexeme(lexeme), literal(literal), line(line) {}
+Token::Token(TokenType type, std::string lexeme, std::variant<bool, double, std::string, std::monostate> literal, int line) : type(type), lexeme(lexeme), literal(literal), line(line) {}
 
 TokenType Token::getType()
 {
     return this->type;
 }
 
-string Token::getLexeme()
+std::string Token::getLexeme()
 {
     return this->lexeme;
 }
 
-variant<bool, double, string, monostate> Token::getLiteral()
+std::variant<bool, double, std::string, std::monostate> Token::getLiteral()
 {
     return this->literal;
 }
@@ -79,22 +79,21 @@ int Token::getLine()
     return this->line;
 }
 
-string Token::tokenToString()
+std::string Token::tokenToString()
 {
-    string lit;
-    if(std::holds_alternative<string>(literal)) {
-        lit = std::get<string>(literal);
+    std::string lit;
+    if (std::holds_alternative<std::string>(literal)) {
+        lit = std::get<std::string>(literal);
     }
-    else if (std::holds_alternative<double>(this->literal)) {
+    else if (std::holds_alternative<double>(literal)) {
         double value = std::get<double>(literal);
         std::ostringstream oss;
         oss << std::fixed << std::setprecision(6) << value;
         lit = oss.str();
 
-        // Trim trailing zeros and optional dot
         lit.erase(lit.find_last_not_of('0') + 1, std::string::npos);
         if (!lit.empty() && lit.back() == '.') {
-            lit.pop_back();
+            lit += '0';
         }
     }
     else if (std::holds_alternative<bool>(literal)) {

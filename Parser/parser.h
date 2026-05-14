@@ -5,11 +5,11 @@
 
 class Parser {
     private:
-    const vector<Token> tokens;
+    const std::vector<Token> tokens;
     int current = 0;
 
     public:
-    Parser(vector<Token> tokens);
+    Parser(std::vector<Token> tokens);
 };
 
 #endif

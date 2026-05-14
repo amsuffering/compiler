@@ -2,16 +2,16 @@
 #define ASTPRINTER_H
 
 #include <string>
+#include<vector>
 #include "visitor.h"
 
 class Expr;
 
-using std::string;
-
 class ASTPrinter : public Visitor
 {
     private:
-    string print(Expr &expr);
+    std::string print(Expr &expr);
+    std::string parenthesize(std::string name, std::vector<Expr> expr);
 
     public:
     std::any visitBinary(const Binary& binary);
