@@ -5,8 +5,14 @@
 
 class Literal : public Expr 
 {
+    private:
+    std::variant<bool, double, string, monostate> value;
+
     public:
-    virtual std::any getValue() const = 0;
+    Literal(std::variant<bool, double, string, monostate> value);
+    std::any accept(Visitor& visitor) override;
+    const std::variant<bool, double, string, monostate>& getValue() const;
+
 };
 
 #endif
