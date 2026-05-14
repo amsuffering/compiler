@@ -34,11 +34,11 @@ class Token {
 
     public:
     Token(TokenType type, std::string lexeme, std::variant<bool, double, std::string, std::monostate> literal, int line);
-    TokenType getType();
-    std::string getLexeme();
-    std::variant<bool, double, std::string, std::monostate> getLiteral();
-    int getLine();
-    std::string tokenToString();
+    TokenType getType() const;
+    std::string getLexeme() const;
+    std::variant<bool, double, std::string, std::monostate> getLiteral() const;
+    int getLine() const;
+    std::string tokenToString() const;
 };
 
 #endif

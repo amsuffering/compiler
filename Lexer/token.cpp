@@ -59,27 +59,27 @@ std::string typeToString(TokenType type)
 
 Token::Token(TokenType type, std::string lexeme, std::variant<bool, double, std::string, std::monostate> literal, int line) : type(type), lexeme(lexeme), literal(literal), line(line) {}
 
-TokenType Token::getType()
+TokenType Token::getType() const
 {
     return this->type;
 }
 
-std::string Token::getLexeme()
+std::string Token::getLexeme() const
 {
     return this->lexeme;
 }
 
-std::variant<bool, double, std::string, std::monostate> Token::getLiteral()
+std::variant<bool, double, std::string, std::monostate> Token::getLiteral() const
 {
     return this->literal;
 }
 
-int Token::getLine()
+int Token::getLine() const
 {
     return this->line;
 }
 
-std::string Token::tokenToString()
+std::string Token::tokenToString() const
 {
     std::string lit;
     if (std::holds_alternative<std::string>(literal)) {
