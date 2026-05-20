@@ -1,0 +1,4 @@
+// Missing ) — should error at end of file
+(1 + 2
+
+// expect-error: [line 5] Error at end: Expect ')' after expression.

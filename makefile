@@ -7,7 +7,7 @@ OBJ_DIR = build
 BIN_DIR = build
 
 # === Source files ===
-PARSER_SRC = Parser/parser.cpp
+PARSER_SRC = Parser/parser.cpp Parser/AstPrinter.cpp
 LEXER_SRC = Lexer/scanner.cpp Lexer/token.cpp
 ERROR_SRC = ErrorReporter/ErrorReporter.cpp
 SCANNER_TEST_SRC = Lexer/test/testScanner.cpp
@@ -22,6 +22,11 @@ SCANNER_TEST_OBJ = $(OBJ_DIR)/Lexer/test/testScanner.o
 # === Executables ===
 SCANNER_BIN = $(BIN_DIR)/testScanner
 PARSER_BIN = $(BIN_DIR)/testParser
+
+# === Phony targets ===
+.PHONY: all clean testParser testScanner
+testParser: $(PARSER_BIN)
+testScanner: $(SCANNER_BIN)
 
 # === Default target ===
 all: $(SCANNER_BIN) $(PARSER_BIN)

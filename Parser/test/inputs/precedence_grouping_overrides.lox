@@ -1,0 +1,5 @@
+// Grouping must override precedence — addition should happen first.
+// Wrong result would be (* 2.000000 (+ 3.000000 4.000000)) or similar
+(2 + 3) * 4
+
+// expect: (* (group (+ 2.000000 3.000000)) 4.000000)

@@ -1,0 +1,4 @@
+// Chained unary — unary is right-recursive so --1 should nest inward
+--1
+
+// expect: (- (- 1.000000))

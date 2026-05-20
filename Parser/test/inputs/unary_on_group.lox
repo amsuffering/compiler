@@ -1,0 +1,4 @@
+// Unary applied to a grouped expression
+-(1 + 2)
+
+// expect: (- (group (+ 1.000000 2.000000)))

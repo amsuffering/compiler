@@ -1,0 +1,4 @@
+// Trailing binary operator with no right operand — hits EOF in primary()
+1 +
+
+// expect-error: [line 5] Error at end: Expect expression.

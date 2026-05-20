@@ -1,0 +1,4 @@
+// Each ( must produce its own group node
+((1 + 2))
+
+// expect: (group (group (+ 1.000000 2.000000)))

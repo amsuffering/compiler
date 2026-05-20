@@ -1,0 +1,5 @@
+// < must bind tighter than ==.
+// Wrong result would be (< 1.000000 (== 2.000000 true))
+1 < 2 == true
+
+// expect: (== (< 1.000000 2.000000) true)

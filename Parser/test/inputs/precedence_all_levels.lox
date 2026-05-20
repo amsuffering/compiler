@@ -1,0 +1,5 @@
+// Exercises all precedence levels in one expression.
+// Parsed as: (1 + (2 * 3)) - (4 / 2)
+1 + 2 * 3 - 4 / 2
+
+// expect: (- (+ 1.000000 (* 2.000000 3.000000)) (/ 4.000000 2.000000))

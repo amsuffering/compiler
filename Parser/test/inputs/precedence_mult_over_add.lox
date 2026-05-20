@@ -1,0 +1,5 @@
+// Multiplication must bind tighter than addition.
+// Wrong result would be (* (+ 2.000000 3.000000) 4.000000)
+2 + 3 * 4
+
+// expect: (+ 2.000000 (* 3.000000 4.000000))

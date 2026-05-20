@@ -1,6 +1,7 @@
 #ifndef ERRORREPORTER_H
 #define ERRORREPORTER_H
 
+#include "token.h"
 #include <string>
 
 class ErrorReporter {
@@ -11,6 +12,7 @@ class ErrorReporter {
     public:
     ErrorReporter();
     void error(int line, std::string message);
+    void error(Token token, std::string message);
     bool hadError();
     void hadError(bool hadError);
 };

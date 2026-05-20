@@ -1,0 +1,5 @@
+// - is left-associative: (1 - 2) - 3, not 1 - (2 - 3)
+// These produce different values: -4 vs 2, so this catches right-associativity bugs
+1 - 2 - 3
+
+// expect: (- (- 1.000000 2.000000) 3.000000)

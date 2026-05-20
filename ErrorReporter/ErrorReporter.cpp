@@ -14,6 +14,15 @@ void ErrorReporter::error(int line, std::string message)
     report(line, "", message);
 }
 
+void ErrorReporter::error(Token token, std::string message)
+{
+    if (token.getType() == TokenType::EoF) {
+        report(token.getLine(), " at end", message);
+    } else {
+        report(token.getLine(), " at '" + token.getLexeme() + "'", message);
+    }
+}
+
 bool ErrorReporter::hadError()
 {
     return this->errorHappened;

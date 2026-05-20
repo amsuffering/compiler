@@ -1,0 +1,5 @@
+// Unary ! must bind tighter than ==.
+// Wrong result would be (! (== true false))
+!true == false
+
+// expect: (== (! true) false)

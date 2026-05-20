@@ -1,0 +1,5 @@
+// Unary minus must bind tighter than *.
+// Wrong result would be (- (* 2.000000 3.000000))
+-2 * 3
+
+// expect: (* (- 2.000000) 3.000000)
