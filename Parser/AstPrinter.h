@@ -2,9 +2,7 @@
 #define ASTPRINTER_H
 
 #include <string>
-#include "visitor.h"
-
-class Expr;
+#include "expression.h"
 
 class ASTPrinter : public Visitor
 {

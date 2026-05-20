@@ -1,10 +1,4 @@
-
 #include "AstPrinter.h"
-#include "expr.h"
-#include "binary.h"
-#include "grouping.h"
-#include "literal.h"
-#include "unary.h"
 
 std::string ASTPrinter::parenthesize(std::string name, std::initializer_list<const Expr*> exprs)
 {
@@ -37,10 +31,10 @@ std::any ASTPrinter::visitLiteral(const Literal& literal)
 {
     return std::visit([](auto&& v) -> std::string {
         using T = std::decay_t<decltype(v)>;
-        if constexpr (std::is_same_v<T, std::string>)    return v;
-        else if constexpr (std::is_same_v<T, double>)         return std::to_string(v);
-        else if constexpr (std::is_same_v<T, bool>)           return v ? "true" : "false";
-        else (std::is_same_v<T, std::monostate>) return "nil";
+        if constexpr (std::is_same_v<T, std::string>)   return v;
+        else if constexpr (std::is_same_v<T, double>)   return std::to_string(v);
+        else if constexpr (std::is_same_v<T, bool>)     return v ? "true" : "false";
+        else                                            return "nil";
     }, literal.getValue());
 }
 
