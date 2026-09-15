@@ -1,6 +1,6 @@
 # === Compiler settings ===
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -I. -ILexer -IErrorReporter -IParser
+CXXFLAGS = -std=c++20 -Wall -I. -ILexer -IErrorReporter -IParser
 
 # === Directory setup ===
 OBJ_DIR = build

@@ -14,6 +14,7 @@ class Visitor {
     virtual std::any visitGrouping(const Grouping& grouping) = 0;
     virtual std::any visitLiteral(const Literal& literal) = 0;
     virtual std::any visitUnary(const Unary& unary) = 0;
+    virtual ~Visitor() = default;
 };
 
 #endif
