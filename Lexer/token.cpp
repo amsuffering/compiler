@@ -2,7 +2,7 @@
 #include <sstream>
 #include <iomanip>
 
-static std::string formatDouble(double v)
+std::string formatDouble(double v)
 {
     std::ostringstream oss;
     oss << std::fixed << std::setprecision(6) << v;

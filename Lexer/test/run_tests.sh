@@ -39,14 +39,32 @@ for test_file in "$TEST_DIR"/*.lox; do
     stderr_out=$(cat "$STDERR_TMP")
     rm -f "$STDERR_TMP"
 
-    if [ "$actual" = "$expected" ]; then
+    # Unlike the parser, the scanner keeps scanning after an error, so an error
+    # test still has expected stdout -- check both streams rather than
+    # requiring stdout to be empty.
+    ok=1
+    [ "$actual" = "$expected" ] || ok=0
+
+    expected_err=""
+    if grep -q "^// expect-error:" "$test_file"; then
+        expected_err=$(grep "^// expect-error:" "$test_file" | sed 's|^// expect-error: ||' | tr -d '\r')
+        actual_err=$(echo "$stderr_out" | head -1 | tr -d '\r')
+        [ "$actual_err" = "$expected_err" ] || ok=0
+    fi
+
+    if [ $ok -eq 1 ]; then
         echo -e "  ${GREEN}PASS${NC}: $name"
         PASS=$((PASS + 1))
     else
         echo -e "  ${RED}FAIL${NC}: $name"
         diff <(echo "$expected") <(echo "$actual") \
             --label expected --label actual -u | sed 's|^|    |'
-        [ -n "$stderr_out" ] && echo "    stderr: '$stderr_out'"
+        if [ -n "$expected_err" ]; then
+            echo "    Expected error: '$expected_err'"
+            echo "    Got error:      '$actual_err'"
+        elif [ -n "$stderr_out" ]; then
+            echo "    stderr: '$stderr_out'"
+        fi
         FAIL=$((FAIL + 1))
     fi
 done

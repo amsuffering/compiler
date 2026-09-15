@@ -6,7 +6,9 @@ Parser::Parser(std::vector<Token> tokens, ErrorReporter& reporter) : tokens(std:
 std::unique_ptr<Expr> Parser::parse()
 {
     try {
-        return expression();
+        std::unique_ptr<Expr> expr = expression();
+        if (!isAtEnd()) throw error(peek(), "Expect end of expression.");
+        return expr;
     } catch (const ParseError& error) {
         return nullptr;
     }

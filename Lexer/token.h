@@ -24,6 +24,7 @@ enum class TokenType {
 };
 
 std::string typeToString(TokenType type);
+std::string formatDouble(double v);
 
 class Token {
     private:

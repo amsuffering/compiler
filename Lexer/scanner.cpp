@@ -1,4 +1,5 @@
 #include "scanner.h"
+#include <stdexcept>
 
 Scanner::Scanner(std::string& source, ErrorReporter& reporter)
     : source(source), reporter(reporter), keywords({
@@ -166,7 +167,13 @@ void Scanner::numberLit()
 
         while (isdigit(peek())) advance();
     }
-    double value = std::stod(source.substr(start, current - start));
+    double value;
+    try {
+        value = std::stod(source.substr(start, current - start));
+    } catch (const std::out_of_range&) {
+        reporter.error(line, "Number literal out of range.");
+        return;
+    }
     addToken(TokenType::NUMBER, value);
 }
 

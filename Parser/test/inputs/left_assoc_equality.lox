@@ -2,4 +2,4 @@
 // Catches any right-associativity bug in the equality rule
 1 == 2 != false
 
-// expect: (!= (== 1.000000 2.000000) false)
+// expect: (!= (== 1.0 2.0) false)
