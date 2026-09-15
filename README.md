@@ -2,7 +2,7 @@
 who knows if i actually work on this
 
 ## Goal
-Ok, technically this is an interpreter cause I don't wanna fucking deal with writing real CPU instructions LOL. See [Back End](#back-end)
+Ok, technically this is an interpreter cause I don't wanna deal with writing real CPU instructions LOL. See [Back End](#back-end)
 
 ## Phases
 Compilers are written in a front end, middle end, and back end.
